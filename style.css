@@ -192,13 +192,11 @@
 }
 
 .page-template-documentation #thrive-page-navigation ol.children li > ol.children {
-    overflow: hidden;
-    max-height: 1000px;
+    display: block;
 }
 
 .page-template-documentation #thrive-page-navigation ol.children li.active > ol.children {
-    overflow: hidden;
-    max-height: 5px;
+    display: none;
 }
 
 .page-template-documentation #thrive-page-navigation ol.children > li > a:hover,
@@ -251,14 +249,15 @@
 
 .page-template-documentation .thrive-page-navigation {
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     display: inline-block;
+    text-align: center;
 }
 
 .page-template-documentation .thrive-page-navigation .button {
-    padding: 0;
     display: inline-block;
     position: relative;
+    width: 125px;
 }
 
 body.page-template-documentation .page-parent .thrive-page-navigation .prev {
@@ -290,12 +289,20 @@ body.page-template-documentation .page-parent.page-child .thrive-page-navigation
     display: inline-block;
 }
 
+.page-template-documentation .thrive-page-navigation .prev {
+    padding-left: 42.5px;
+}
+
 .page-template-documentation .thrive-page-navigation .prev i {
-    left: 25px;
+    left: 10px;
+}
+
+.page-template-documentation .thrive-page-navigation .next {
+    padding-right: 42.5px;
 }
 
 .page-template-documentation .thrive-page-navigation .next i {
-    right: 25px;
+    right: 10px;
 }
 
 .page-template-documentation .thrive-page-navigation .button i {

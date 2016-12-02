@@ -45,28 +45,34 @@ if( have_posts() ){
 
 						<?php if( !$post->post_parent ) {
 
-							$child_pages = wp_list_pages( array(
-												'title_li'		=> '',
-												'child_of'		=> $post->ID,
-												'echo'			=> 0
-											) );
+								$child_pages = wp_list_pages(
+									array(
+										'title_li'	=> '',
+										'child_of'	=> $post->ID,
+										'echo'			=> 0
+										)
+									);
 
-						} else {
+							} else {
 
-							if( $post->ancestors ) {
+								if( $post->ancestors ) {
 
-								$ancestors = end( $post->ancestors );
+									$ancestors = end( $post->ancestors );
 
-								$child_pages = wp_list_pages( array(
-													'title_li'		=> '',
-													'child_of'		=> $ancestors,
-													'echo'			=> 0
-												) );
-							}
+									$child_pages = wp_list_pages(
+										array(
+											'title_li'		=> '',
+											'child_of'		=> $ancestors,
+											'echo'			=> 0
+										)
+									);
+								}
 
-						}
+							} // end !$post->post_parent
 
 						$ancestors = get_post_ancestors( $post );
+
+						//var_dump($child_pages);
 
 						$parent = end( $ancestors );
 
@@ -160,13 +166,37 @@ if( have_posts() ){
 					</main>
 				</div>
 
+				<?php
+					$pagelist = get_pages( 'sort_column=menu_order&sort_order=asc&parent=-1' );
+
+					$pages = array();
+
+					foreach ( $pagelist as $page ) {
+
+					   $pages[] += $page->ID;
+
+					}
+
+					$current = array_search( get_the_ID(), $pages );
+					$prevID = $pages[ $current - 1 ];
+					$nextID = $pages[ $current + 1 ];
+				?>
+
 				<div class="thrive-page-navigation">
 
-					<div class="button prev pull-left"><?php previous_post_link('<i class="material-icons md-24">keyboard_arrow_left</i>%link'); ?></div>
+					<?php if (!empty($prevID)) { ?>
 
-					<div class="button next pull-right"><?php next_post_link('%link<i class="material-icons md-24">keyboard_arrow_right</i>'); ?></div>
+						<a href="<?php echo esc_url( get_permalink( $prevID ) ); ?>" class="button prev" title="<?php echo esc_attr( get_the_title( $prevID ) ); ?>"><i class="material-icons md-24">arrow_back</i>Previous</a>
 
-				</div>
+					<?php }
+
+					if (!empty($nextID)) { ?>
+
+							<a href="<?php echo esc_url( get_permalink( $nextID ) ); ?>" class="button next" title="<?php echo esc_attr( get_the_title( $nextID ) ); ?>">Next<i class="material-icons md-24">arrow_forward</i></a>
+
+					<?php } ?>
+
+				</div><!-- .thrive-page-navigation -->
 
 				<?php
 					// If comments are open or we have at least one comment, load up the comment template.
